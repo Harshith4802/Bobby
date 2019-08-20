@@ -1,6 +1,6 @@
 import numpy as np
-from matplotlib import pyplot as plt
-from math import pi
+import matplotlib.pyplot as plt
+from numpy import linalg as LA
 
 def line_gen(A,B):
   len =10
@@ -21,19 +21,25 @@ plt.text(A[0] * (1 + 0.1), A[1] * (1 - 0.1) , 'A')
 plt.plot(B[0], B[1], 'o')
 plt.text(B[0] * (1 - 0.2), B[1] * (1) , 'B')
 
-u=  0   #x-position of the center
-v=0.5    #y-position of the center
-a=np.sqrt(2)  #radius on the x-axis
-b=1.5 #radius on the y-axis
+len=100
+theta=np.linspace(0,2*np.pi,len)
+V=np.array(([9,0],[0,8]))
+u=np.array([0,8])
+F=-16
+O=np.array([0,0])
+l,m=LA.eig(V/-F)
+y = np.zeros((2,len))
+a=1/l[0]**0.5
+b=1/l[1]**0.5
+print(a)
+print(b)
 
-t = np.linspace(0, 2*pi, 100)
+y[0,:] = a*np.cos(theta)
+y[1,:] = b*np.sin(theta)    
+plt.plot(y[0,:],y[1,:],label='E')
 
-P=np.array([1.33,0])
-plt.plot(P[0], P[1], 'o')
-plt.text(P[0] * (1 + 0.1), P[1] * (1 - 0.1) , 'P')
-
-plt.plot( u+a*np.cos(t) , v+b*np.sin(t) )
-plt.axis("equal")
-plt.legend()
-plt.grid(color='lightgray',linestyle='--')
+plt.axis('equal')
+plt.xlabel('$x$');plt.ylabel('$y$')
+plt.legend(loc='best')
+plt.grid()
 plt.show()
