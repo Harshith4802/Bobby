@@ -1,0 +1,39 @@
+import numpy as np
+from matplotlib import pyplot as plt
+from math import pi
+
+def line_gen(A,B):
+  len =10
+  x_AB = np.zeros((2,len))
+  lam_1 = np.linspace(0,1,len)
+  for i in range(len):
+    temp1 = A + lam_1[i]*(B-A)
+    x_AB[:,i]= temp1.T
+  return x_AB
+
+A=np.array([0,0])
+B=np.array([0,1])
+x_AB=line_gen(A,B)
+
+plt.plot(x_AB[0,:],x_AB[1,:],label='$AB$')
+plt.plot(A[0], A[1], 'o')
+plt.text(A[0] * (1 + 0.1), A[1] * (1 - 0.1) , 'A')
+plt.plot(B[0], B[1], 'o')
+plt.text(B[0] * (1 - 0.2), B[1] * (1) , 'B')
+
+u=  0   #x-position of the center
+v=0.5    #y-position of the center
+a=np.sqrt(2)  #radius on the x-axis
+b=1.5 #radius on the y-axis
+
+t = np.linspace(0, 2*pi, 100)
+
+P=np.array([1.33,0])
+plt.plot(P[0], P[1], 'o')
+plt.text(P[0] * (1 + 0.1), P[1] * (1 - 0.1) , 'P')
+
+plt.plot( u+a*np.cos(t) , v+b*np.sin(t) )
+plt.axis("equal")
+plt.legend()
+plt.grid(color='lightgray',linestyle='--')
+plt.show()
